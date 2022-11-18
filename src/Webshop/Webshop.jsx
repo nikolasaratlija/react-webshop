@@ -27,16 +27,46 @@ class Webshop extends Component {
     render() {
         return (
             <>
+                {/*Filters*/}
                 <section className="flex gap-y-2 flex-col mb-4 m-2 p-4 lg:m-4 border-2 lg:mb-4">
-                    <ProductFilter name="Brand" filters={this.getBrandFilters()}/>
-                    <ProductFilter name="Category" filters={this.getCategoryFilters()}/>
+                    <ProductFilter
+                        name="Brand"
+                        filters={this.getBrandFilters()}
+                        activeFilters={this.state.activeFilters}
+                        toggleFilter={this.toggleFilter}
+                        clearFilters={this.clearFilters}
+                    />
+                    {/*<ProductFilter*/}
+                    {/*    name="Category"*/}
+                    {/*    filters={this.getCategoryFilters()}*/}
+                    {/*    activeFilters={this.state.activeFilters['category']}*/}
+                    {/*/>*/}
                 </section>
 
+                {/*Products List*/}
                 <section className="m-2 lg:m-4 lg:p-4 lg:border-2">
-                    {this.state.loading ? 'loading...' : <ProductContainer products={this.state.products}/>}
+                    {this.state.loading ? 'loading...' : <ProductContainer products={this.getFilteredProducts()}/>}
                 </section>
             </>
         );
+    }
+
+    toggleFilter = (filter) => {
+        // immutably sets a filter variable
+        const filters = this.state.activeFilters.includes(filter) ? // check if filters contains the passed filter
+            this.state.activeFilters.filter(f => f !== filter) : // return all filters except the passed filter
+            [...this.state.activeFilters, filter] // return all filters + the passed filter
+
+        this.setState({activeFilters: filters})
+    }
+
+    clearFilters = () => {
+        this.setState({activeFilters: []})
+    }
+
+    getFilteredProducts = () => {
+        return this.state.activeFilters.length === 0 ? this.state.products :
+            this.state.products.filter(p => this.state.activeFilters.includes(p.brand));
     }
 
     getBrandFilters() {
