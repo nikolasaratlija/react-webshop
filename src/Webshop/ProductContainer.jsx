@@ -11,6 +11,8 @@ class ProductContainer extends Component {
                         description={product.description}
                         price={product.price}
                         image={product.images[0]}
+                        brand={product.brand}
+                        category={product.category}
                     />
                 )}
             </div>

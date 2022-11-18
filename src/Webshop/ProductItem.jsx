@@ -1,4 +1,4 @@
-export const ProductItem = ({title, description, price, image}) => (
+export const ProductItem = ({title, description, price, image, brand, category}) => (
     <div className={"border px-4 py-8 flex flex-col items-start"}>
         <img src={image} alt="product" className="aspect-square mb-2"/>
 
@@ -8,7 +8,13 @@ export const ProductItem = ({title, description, price, image}) => (
             {description}
         </p>
 
-        <span className="text-xl font-bold mb-4 mt-auto">
+        <div className="flex text-xs mt-auto mb-2 gap-x-1">
+            <span className="font-bold text-indigo-800">{brand}</span>
+            <span>|</span>
+            <span>{category}</span>
+        </div>
+
+        <span className="text-xl font-bold mb-4">
             {price.toFixed(2)}
         </span>
 
