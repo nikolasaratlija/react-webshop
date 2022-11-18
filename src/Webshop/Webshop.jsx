@@ -14,7 +14,7 @@ class Webshop extends Component {
     }
 
     componentDidMount() {
-        fetch('https://dummyjson.com/products?limit=10')
+        fetch('https://dummyjson.com/products?limit=25')
             .then(res => res.json())
             .then(productsJson => {
                 this.setState({
@@ -36,6 +36,7 @@ class Webshop extends Component {
                         toggleFilter={this.toggleFilter}
                         clearFilters={this.clearFilters}
                     />
+
                     {/*<ProductFilter*/}
                     {/*    name="Category"*/}
                     {/*    filters={this.getCategoryFilters()}*/}
