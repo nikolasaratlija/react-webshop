@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ProductContainer from "./ProductContainer";
-import ProductFilter from "./ProductFilter";
+import ProductFilters from "./ProductFilters/ProductFilters";
 
 class Webshop extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class Webshop extends Component {
     }
 
     componentDidMount() {
-        fetch('https://dummyjson.com/products?limit=25')
+        fetch('https://dummyjson.com/products')
             .then(res => res.json())
             .then(productsJson => {
                 this.setState({
@@ -29,24 +29,19 @@ class Webshop extends Component {
             <>
                 {/*Filters*/}
                 <section className="flex gap-y-2 flex-col mb-4 m-2 p-4 lg:m-4 border-2 lg:mb-4">
-                    <ProductFilter
-                        name="Brand"
-                        filters={this.getBrandFilters()}
-                        activeFilters={this.state.activeFilters}
-                        toggleFilter={this.toggleFilter}
-                        clearFilters={this.clearFilters}
-                    />
-
-                    {/*<ProductFilter*/}
-                    {/*    name="Category"*/}
-                    {/*    filters={this.getCategoryFilters()}*/}
-                    {/*    activeFilters={this.state.activeFilters['category']}*/}
-                    {/*/>*/}
+                    {this.state.loading ? '' :
+                        <ProductFilters
+                            products={this.state.products}
+                            toggleFilter={this.toggleFilter}
+                        />
+                    }
                 </section>
 
                 {/*Products List*/}
                 <section className="m-2 lg:m-4 lg:p-4 lg:border-2">
-                    {this.state.loading ? 'loading...' : <ProductContainer products={this.getFilteredProducts()}/>}
+                    {this.state.loading ? 'loading...' :
+                        <ProductContainer products={this.getFilteredProducts()}/>
+                    }
                 </section>
             </>
         );
@@ -61,21 +56,9 @@ class Webshop extends Component {
         this.setState({activeFilters: filters})
     }
 
-    clearFilters = () => {
-        this.setState({activeFilters: []})
-    }
-
     getFilteredProducts = () => {
         return this.state.activeFilters.length === 0 ? this.state.products :
-            this.state.products.filter(p => this.state.activeFilters.includes(p.brand));
-    }
-
-    getBrandFilters() {
-        return [...new Set(this.state.products.map(p => p.brand))]
-    }
-
-    getCategoryFilters() {
-        return [...new Set(this.state.products.map(p => p.category))]
+            this.state.products.filter(p => this.state.activeFilters.includes(p.category));
     }
 }
 
