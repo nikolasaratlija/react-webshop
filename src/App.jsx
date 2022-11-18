@@ -2,7 +2,7 @@ import Webshop from "./Webshop/Webshop";
 
 function App() {
     return (
-        <div className="App">
+        <div className="lg:container lg:mx-auto lg:px-8">
             <Webshop/>
         </div>
     );
