@@ -19,7 +19,7 @@ export const ProductItem = ({title, description, price, image, brand, category})
         </span>
 
         <button className="bg-green-600 w-full text-white text-start align-bottom p-2 text-xs lg:text-base">
-            In Winkelwagen
+            Add to cart
         </button>
     </div>
 )
