@@ -1,4 +1,4 @@
-import ProductContainer from "./Webshop/Products/ProductContainer";
+import ProductContainer from "./components/Products/ProductContainer";
 import React from "react";
 
 function App() {
