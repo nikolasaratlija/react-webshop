@@ -1,5 +1,7 @@
 import {selectCategories} from "../../redux/products/selectors";
 import {connect} from "react-redux";
+import {clearCategoryFilter, setCategoryFilter} from "../../redux/filter";
+import {selectActiveCategoryFilters} from "../../redux/filter/category/selectors";
 
 const tagStyle = "border p-1 rounded text-xs cursor-pointer"
 const tagStyleSelect = "bg-blue-500 border-blue-700 text-white"
@@ -11,7 +13,7 @@ const ProductFilter = props => (
         <div className="flex gap-2 flex-wrap">
             <span
                 className={[tagStyle, 'bg-orange-500 border-orange-700 text-white'].join(' ')}
-                // onClick={this.props.clearFilters}
+                onClick={props.clearFilter}
             >
                 Clear
             </span>
@@ -19,9 +21,8 @@ const ProductFilter = props => (
             {props.categories.map((filter, i) =>
                 <span
                     key={i}
-                    className={tagStyle}
-                    // className={`${tagStyle} ${props.activeFilters.includes(filter) ? tagStyleSelect : ''}`}
-                    // onClick={() => props.toggleFilter(filter)}
+                    className={`${tagStyle} ${props.activeCategoryFilters.includes(filter) ? tagStyleSelect : ''}`}
+                    onClick={() => props.toggleFilter(filter)}
                 >
                     {filter}
                 </span>)
@@ -32,9 +33,16 @@ const ProductFilter = props => (
 )
 
 const mapStateToProps = state => ({
-    categories: selectCategories(state)
+    categories: selectCategories(state),
+    activeCategoryFilters: selectActiveCategoryFilters(state)
+})
+
+const mapDispatchToProps = dispatch => ({
+    toggleFilter: category => dispatch(setCategoryFilter(category)),
+    clearFilter: () => dispatch(clearCategoryFilter())
 })
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ProductFilter);
