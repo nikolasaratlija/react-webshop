@@ -1,27 +1,19 @@
-import React, {Component} from 'react';
+import {RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack} from "@chakra-ui/react";
 
-class PriceFilter extends Component {
-    constructor(props) {
-        super(props)
+export const PriceFilter = () => (
+    <div className="flex flex-col">
+        <span className="text-orange-600 font-bold mb-2">Price Range</span>
 
-        this.state = {
-            rangeValue: 0
-        }
-    }
+        <span className="font-bold uppercase mb-1 text-xs">€12 - €1323</span>
+        <RangeSlider colorScheme='orange' w={"33%"} aria-label={['min', 'max']} defaultValue={[10, 30]}>
+            <RangeSliderTrack>
+                <RangeSliderFilledTrack/>
+            </RangeSliderTrack>
+            <RangeSliderThumb index={0}/>
+            <RangeSliderThumb index={1}/>
+        </RangeSlider>
+    </div>
+)
 
-    componentDidMount() {
-        this.setState({rangeValue: this.props.range.max})
-    }
-
-    render() {
-        return (
-            <div>
-                <input type="range" name="price"
-                       min={this.props.range.min} max={this.props.range.max}/>
-                <label htmlFor="price">{this.props.range.min} - {this.props.range.max}</label>
-            </div>
-        );
-    }
-}
 
 export default PriceFilter;
