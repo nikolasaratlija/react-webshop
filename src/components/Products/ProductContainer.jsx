@@ -2,19 +2,25 @@ import React, {Component} from 'react';
 import {ProductItem} from "./ProductItem";
 import {connect} from "react-redux";
 import {fetchProducts} from "../../redux";
+import {selectFilters} from "../../redux/filter";
 
 class ProductContainer extends Component {
     componentDidMount() {
         this.props.fetchProducts()
     }
 
+    getFilteredProducts = () => {
+        return this.props.products.filter(
+            product => this.props.filters.every(filter => filter(product)))
+    }
+
     render() {
         return (
             this.props.isLoading ? 'Loading...' :
                 <>
-                    <p className="font-bold">Results: {this.props.products.length}</p>
+                    <p className="font-bold">Results: {this.getFilteredProducts().length}</p>
                     <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
-                        {this.props.products.map(product =>
+                        {this.getFilteredProducts().map(product =>
                             <ProductItem
                                 key={product.id}
                                 title={product.title}
@@ -33,7 +39,8 @@ class ProductContainer extends Component {
 
 const mapStateToProps = state => ({
     products: state.productsStore.products,
-    isLoading: state.productsStore.loading
+    isLoading: state.productsStore.loading,
+    filters: selectFilters(state)
 })
 
 const mapDispatchToProps = dispatch => ({

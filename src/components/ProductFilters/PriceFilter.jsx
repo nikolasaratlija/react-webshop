@@ -8,6 +8,7 @@ export const PriceFilter = () => (
         <RangeSlider
             colorScheme='orange'
             w={"33%"}
+            // eslint-disable-next-line
             aria-label={['min', 'max']}
             min={12}
             max={1323}
