@@ -7,3 +7,4 @@ const filtersReducer = combineReducers({
 
 export default filtersReducer
 export {setCategoryFilter, clearCategoryFilter} from './category/filterActions'
+export {selectActiveCategoryFilters} from './category/selectors'

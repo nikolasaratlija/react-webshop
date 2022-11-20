@@ -1,7 +1,7 @@
 import {selectCategories} from "../../redux/products/selectors";
 import {connect} from "react-redux";
 import {clearCategoryFilter, setCategoryFilter} from "../../redux/filter";
-import {selectActiveCategoryFilters} from "../../redux/filter/category/selectors";
+import {selectActiveCategoryFilters} from "../../redux/filter";
 
 const tagStyle = "border p-1 rounded text-xs cursor-pointer"
 const tagStyleSelect = "bg-blue-500 border-blue-700 text-white"
