@@ -1,20 +1,17 @@
 import {combineReducers} from "redux";
 import {categoryFilterReducer} from "./category/reducer";
-import {selectActiveCategoryFilters} from "./category/selectors";
+import {priceFilterReducer} from "./priceFilter/reducer";
+import {filterByCategory} from "./category";
 
 const filtersReducer = combineReducers({
-    categoryFilters: categoryFilterReducer
+    categoryFilters: categoryFilterReducer,
+    priceRangeFilter: priceFilterReducer
 })
 
 export default filtersReducer
 export {setCategoryFilter, clearCategoryFilter} from './category/filterActions'
 export {selectActiveCategoryFilters} from './category/selectors'
 
-export const selectFilters = state =>
-    [
-        product => (
-            selectActiveCategoryFilters(state).length === 0 ?
-                product :
-                selectActiveCategoryFilters(state).includes(product.category)
-        )
-    ]
+export const selectFilters = state => [
+    product => filterByCategory(product, state)
+]
