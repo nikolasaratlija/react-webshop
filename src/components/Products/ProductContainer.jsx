@@ -3,6 +3,7 @@ import {ProductItem} from "./ProductItem";
 import {connect} from "react-redux";
 import {fetchProducts} from "../../redux";
 import {selectFilters} from "../../redux/filter";
+import {selectIsLoading, selectProducts} from "../../redux/products/selectors";
 
 class ProductContainer extends Component {
     componentDidMount() {
@@ -39,8 +40,8 @@ class ProductContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.productsStore.products,
-    isLoading: state.productsStore.loading,
+    products: selectProducts(state),
+    isLoading: selectIsLoading(state),
     filters: selectFilters(state)
 })
 
