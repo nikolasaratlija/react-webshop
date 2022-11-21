@@ -10,6 +10,7 @@ class ProductContainer extends Component {
     }
 
     getFilteredProducts = () => {
+        // loops over all filters and only returns products that all filters
         return this.props.products.filter(
             product => this.props.filters.every(filter => filter(product)))
     }
