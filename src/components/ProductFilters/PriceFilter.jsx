@@ -20,7 +20,7 @@ export const PriceFilter = props => (
             min={props.productsPriceRange.min}
             max={props.productsPriceRange.max}
             defaultValue={[props.productsPriceRange.min, props.productsPriceRange.max]}
-            onChangeEnd={val => props.setPriceRange({min: val[0], max: val[1]})}
+            onChange={val => props.setPriceRange({min: val[0], max: val[1]})}
         >
             <RangeSliderTrack>
                 <RangeSliderFilledTrack/>
