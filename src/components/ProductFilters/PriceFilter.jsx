@@ -1,6 +1,9 @@
 import {RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack} from "@chakra-ui/react";
+import {selectCurrentPriceRange} from "../../redux/filter/priceFilter/selectors";
+import {setPriceFilter} from "../../redux/filter/priceFilter/filterActions";
+import {connect} from "react-redux";
 
-export const PriceFilter = () => (
+export const PriceFilter = props => (
     <div className="flex flex-col">
         <span className="text-orange-600 font-bold mb-2">Price Range</span>
 
@@ -13,7 +16,7 @@ export const PriceFilter = () => (
             min={12}
             max={1323}
             defaultValue={[12, 1323]}
-            onChangeEnd={val => console.log(val)}
+            onChangeEnd={val => props.setPriceRange({min: val[0], max: val[1]})}
         >
             <RangeSliderTrack>
                 <RangeSliderFilledTrack/>
@@ -24,5 +27,15 @@ export const PriceFilter = () => (
     </div>
 )
 
+const mapStateToProps = state => ({
+    currentPriceRange: selectCurrentPriceRange(state)
+})
 
-export default PriceFilter;
+const mapDispatchToProps = dispatch => ({
+    setPriceRange: value => dispatch(setPriceFilter(value))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PriceFilter);

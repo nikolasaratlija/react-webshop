@@ -10,6 +10,6 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
-store.subscribe(() => console.log(store.getState()))
+store.subscribe(() => console.log(store.getState().filters.priceRangeFilter.currentPriceRange))
 
 export default store
